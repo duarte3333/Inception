@@ -1,0 +1,11 @@
+services:
+
+  nginx_tsl: #container name
+    build: #create image file
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    volumes: #connection between host computer (VM) and container
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports: #definition of ports to open
+      - "80:80"
+      - "443:443"
