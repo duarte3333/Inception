@@ -1,11 +1,28 @@
 services:
-
-  nginx_tsl: #container name
-    build: #create image file
-      context: .
-      dockerfile: ./nginx/Dockerfile
-    volumes: #connection between host computer (VM) and container
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  mariadb:
+    #image: mariadb:10.4 #the image is prep of the container but here i am create one
+    build:
+      context: . #the context is the path of the dockerfile 
+      dockerfile: ./mariadb/Dockerfile #my image file
+    env_file: #injecting things to the env of the container by a file
+      - .env      
+    volumes: 
+      - ./mariadb:/var/run/mysql #connection between host computer (VM) and container
     ports: #definition of ports to open
-      - "80:80"
-      - "443:443"
+      - "3306:3306"
+    networks:
+      - my_network #the network exists in order to connect the containers
+  
+  # nginx_tsl: #container name
+  #   build: #create image file
+  #     context: .
+  #     dockerfile: ./nginx/Dockerfile
+  #   volumes: #connection between host computer (VM) and container
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #   ports: #definition of ports to open
+  #     - "80:80"
+  #     - "443:443"
+
+networks:
+  my_network: #network name
+    driver: bridge #type of network
