@@ -9,9 +9,27 @@ services:
     volumes: 
       - ./mariadb:/var/run/mysql #connection between host computer (VM) and container
     ports: #definition of ports to open
-      - "3306:3306"
+      - "3306" # "3306:3306" is to redirect the port of the container to the port of the host computer
     networks:
       - my_network #the network exists in order to connect the containers
+  
+  wordpress:
+    #image: wordpress:5.4.1 #the image is prep of the container but here i am create one
+    build:
+      context: . #the context is the path of the dockerfile 
+      dockerfile: ./wordpress/Dockerfile #my image file
+    env_file: #injecting things to the env of the container by a file
+      - .env
+    volumes: #connection between host computer (VM) and container
+      - ./files:/var/www/html
+    ports: #definition of ports to open
+      - "9000"
+    networks:
+      - my_network #the network exists in order to connect the containers
+    depends_on: #only starts if the container mariadb is running
+    #the order of the containers to start
+      - mariadb
+    restart: always #if the container stops, it will start again
   
   # nginx_tsl: #container name
   #   build: #create image file
@@ -20,9 +38,10 @@ services:
   #   volumes: #connection between host computer (VM) and container
   #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
   #   ports: #definition of ports to open
-  #     - "80:80"
+  #     - "80:80"  
   #     - "443:443"
 
 networks:
   my_network: #network name
-    driver: bridge #type of network
+    driver: bridge #type of network to comunicate with containers only
+    #nginx is the only one that is going to comunicate with the outside world
