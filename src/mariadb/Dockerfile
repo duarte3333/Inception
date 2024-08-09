@@ -1,4 +1,4 @@
-FROM debian:12
+FROM debian:oldstable
 
 # Update the package list and install mariadb-server
 RUN apt-get update && apt-get install -y mariadb-server

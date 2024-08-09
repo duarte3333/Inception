@@ -1,14 +1,19 @@
 # Start from the alpine-based Nginx image
-FROM alpine
+FROM debian:oldstable
 
 # Update the package list and install openssl and nginx
-RUN apk update && apk add openssl nginx
+RUN apt-get update && apt-get install -y nginx openssl
 
 # -p is to not repeat if created
 RUN mkdir -p /etc/nginx/ssl 
 
 # Generate a self-signed certificate
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.crt -subj "/C=FR/ST=Paris/L=Paris/O=42/OU=42/CN=ftorres"
+# RUN sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.crt -subj "/CN=localhost"
+
+COPY ./server.crt /etc/nginx/ssl/server.crt
+COPY ./server.key /etc/nginx/ssl/server.key
+
+RUN mkdir /var/log/nginx/dsa-mora 
 
 # Copy the configuration file and the HTML file
 #COPY ./nginx/html/index.html /usr/share/nginx/html/index.html

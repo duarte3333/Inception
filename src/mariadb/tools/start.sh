@@ -1,4 +1,4 @@
-if [-d "/var/lib/mysql/$MYSQL_DATABASE"]; #check if the directory exists
+if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]; #check if the directory exists
 then
     echo "Data directory already exists"
 

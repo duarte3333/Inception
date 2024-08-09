@@ -19,8 +19,9 @@ echo "---------------------------------"
 
 
 if [ ! -f /var/www/html/wp-config.php ]; then #check if the file exists
-	
+	mv ./wp-config.php /var/www/html/
 	cd /var/www/html/ #change the directory to /var/www/html
+	ls
 
     #this command is to replace the string in the file wp-config.php with the new string
 	sed -i "s/__MYSQL_DATABASE__/'$MYSQL_DATABASE'/g" /var/www/html/wp-config.php 
