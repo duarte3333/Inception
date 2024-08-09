@@ -29,7 +29,7 @@ define( 'DB_USER', __MYSQL_USER__ );
 define( 'DB_PASSWORD', __MYSQL_PASSWORD__ );
 
 /** Database hostname */
-define( 'DB_HOST', __DB_HOST__ );
+define( 'HOST_NAME', __HOST_NAME__ );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -105,7 +105,7 @@ require_once ABSPATH . 'wp-settings.php';
 // define( 'DB_NAME', __MYSQL_DATABASE__); etc: These lines 
 // set up the connection to the database where WordPress stores 
 // all its data. You need to replace __MYSQL_DATABASE__, __MYSQL_USER__, 
-// __MYSQL_PASSWORD__, and __DB_HOST__ with your actual database name, user, password, and host.
+// __MYSQL_PASSWORD__, and __HOST_NAME__ with your actual database name, user, password, and host.
     
 // define( 'AUTH_KEY', 'put your unique phrase here' ); etc: 
 // These lines are for security. They should be unique phrases 

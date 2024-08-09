@@ -8,7 +8,7 @@ wall " Printing the environment variables"
 echo "MYSQL_DATABASE: $MYSQL_DATABASE"
 echo "MYSQL_USER: $MYSQL_USER"
 echo "MYSQL_PASSWORD: $MYSQL_PASSWORD"
-echo "DB_HOST: $DB_HOST"
+echo "HOST_NAME: $HOST_NAME"
 echo "WP_URL: $WP_URL"
 echo "WP_TITLE: $WP_TITLE"
 echo "WP_ADMIN: $WP_ADMIN"
@@ -27,8 +27,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then #check if the file exists
 	sed -i "s/__MYSQL_DATABASE__/'$MYSQL_DATABASE'/g" /var/www/html/wp-config.php 
 	sed -i "s/__MYSQL_USER__/'$MYSQL_USER'/g" /var/www/html/wp-config.php
 	sed -i "s/__MYSQL_PASSWORD__/'$MYSQL_PASSWORD'/g" /var/www/html/wp-config.php
-	sed -i "s/__DB_HOST__/'$DB_HOST'/g" /var/www/html/wp-config.php
-	
+	sed -i "s/__HOST_NAME__/'$HOST_NAME'/g" /var/www/html/wp-config.php
 	wp core download --allow-root #download the wordpress core
 	until mysqladmin -hmariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} ping; do #until the database is created
        sleep 2
@@ -41,5 +40,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then #check if the file exists
 	#chown -R www-data:www-data /var/www/html/wp-content #change the owner of the directory to www-data
 fi
 
+cat /var/www/html/wp-config.php
 
 exec /usr/sbin/php-fpm7.4 -F #start the php-fpm service and keep it running in the foreground 
