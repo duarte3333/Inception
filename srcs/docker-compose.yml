@@ -1,5 +1,6 @@
 services:
-  db:
+  mariadb:
+    image: mariadb
     container_name: mariadb
     #image: mariadb:10.4 #the image is prep of the container but here i am create one
     build:
@@ -15,6 +16,7 @@ services:
       - my_network #the network exists in order to connect the containers
   
   wordpress:
+    image: wordpress
     container_name: wordpress
     #image: wordpress:5.4.1 #the image is prep of the container but here i am create one
     build:
@@ -30,10 +32,11 @@ services:
       - my_network #the network exists in order to connect the containers
     depends_on: #only starts if the container mariadb is running
     #the order of the containers to start
-      - db
+      - mariadb
     restart: always #if the container stops, it will start again
   
-  nginx_tsl: #container name
+  nginx: #container name
+    image: nginx #image name
     container_name: nginx
     build: #create image file
       context: ./requirements/nginx #path of the dockerfile
@@ -66,6 +69,7 @@ volumes:
       o: bind 
       #path where the database is stored on the host machine
       device: /home/duarte33/data/db_data 
+
 
 
 
