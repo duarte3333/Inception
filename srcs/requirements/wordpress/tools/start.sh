@@ -23,23 +23,25 @@ if [ ! -f /var/www/html/wp-config.php ]; then #check if the file exists
 	cd /var/www/html/ #change the directory to /var/www/html
 	ls
 
+	chown $(whoami):$(whoami) /var/www/html/wp-config.php
+
     #this command is to replace the string in the file wp-config.php with the new string
-	sed -i "s/__MYSQL_DATABASE__/'$MYSQL_DATABASE'/g" /var/www/html/wp-config.php 
-	sed -i "s/__MYSQL_USER__/'$MYSQL_USER'/g" /var/www/html/wp-config.php
-	sed -i "s/__MYSQL_PASSWORD__/'$MYSQL_PASSWORD'/g" /var/www/html/wp-config.php
-	sed -i "s/__HOST_NAME__/'$HOST_NAME'/g" /var/www/html/wp-config.php
-	wp core download --allow-root #download the wordpress core
-	until mysqladmin -hmariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} ping; do #until the database is created
+    sed -i "s/__MYSQL_DATABASE__/'$MYSQL_DATABASE'/g" /var/www/html/wp-config.php 
+    sed -i "s/__MYSQL_USER__/'$MYSQL_USER'/g" /var/www/html/wp-config.php
+    sed -i "s/__MYSQL_PASSWORD__/'$MYSQL_PASSWORD'/g" /var/www/html/wp-config.php
+    sed -i "s/__DOCKERCONTAINERNAME__/'$HOST_NAME'/g" /var/www/html/wp-config.php
+
+	wp core download --allow-root
+	until mysqladmin -hmariadb -u${MYSQL_USER} -p${MYSQL_PASSWORD} ping; do
        sleep 2
     done
-    #this command is to create the database
 	wp config create --dbname=${MYSQL_DATABASE} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=mariadb:3306 --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
 	wp core install --url=${WP_URL} --title="${WP_TITLE}" --admin_user=${WP_ADMIN} --admin_password=${WP_ADMIN_PASSWORD} --admin_email="$WP_ADMIN@student.42.fr" --allow-root
 	wp user create ${WP_USER} "$WP_USER"@user.com --role=author --user_pass=${WP_USER_PASSWORD} --allow-root
 
-	#chown -R www-data:www-data /var/www/html/wp-content #change the owner of the directory to www-data
+	chown -R www-data:www-data /var/www/html/wp-content #change the owner of the directory to www-data
 fi
 
-cat /var/www/html/wp-config.php
+cat /var/www/html/wp-config.php | grep "define( ')"
 
 exec /usr/sbin/php-fpm7.4 -F #start the php-fpm service and keep it running in the foreground 
