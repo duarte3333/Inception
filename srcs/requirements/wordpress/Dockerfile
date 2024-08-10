@@ -10,10 +10,10 @@ RUN     apt-get update && \
 RUN 	mkdir -p /var/run/ ; mkdir -p /run/php/ 
 #/var/run/ for log files ; /var/run/php-fpm for php-fpm.pid file
 
-COPY ./wordpress/conf/wp-config.php /
+COPY ./requirements/wordpress/conf/wp-config.php /
 #configuration file
-COPY ./wordpress/conf/www.conf /etc/php/7.4/fpm/pool.debian 
-COPY ./wordpress/tools/start.sh .
+COPY ./requirements/wordpress/conf/www.conf /etc/php/7.4/fpm/pool.debian 
+COPY ./requirements/wordpress/tools/start.sh .
 
 
 # Download and install wordpress

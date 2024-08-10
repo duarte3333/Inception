@@ -13,7 +13,7 @@ RUN chown -R mysql:mysql /var/run/mysql
 RUN chmod 777 /var/run/mysql
 
 #Copy the start.sh file to the current directory
-COPY ./mariadb/tools/start.sh .
+COPY ./requirements/mariadb/tools/start.sh .
 RUN chmod 777 start.sh
 
 #Expose to the port 3306 - the mysql port

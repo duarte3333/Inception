@@ -2,11 +2,11 @@
 
 all: 
 #Command to build the docker's images and run the container's services
-	@docker-compose -f src/compose.yml up --build 
+	@docker-compose -f srcs/docker-compose.yml up --build 
 
 down:
 #Command to stop the container's services
-	@docker-compose -f src/compose.yml down 
+	@docker-compose -f srcs/docker-compose.yml down 
 
 clean:
 	- docker stop $$(docker ps -a -q)

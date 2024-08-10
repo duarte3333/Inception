@@ -10,8 +10,8 @@ RUN mkdir -p /etc/nginx/ssl
 # Generate a self-signed certificate
 # RUN sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.crt -subj "/CN=localhost"
 
-COPY ./server.crt /etc/nginx/ssl/server.crt
-COPY ./server.key /etc/nginx/ssl/server.key
+COPY ./conf/server.crt /etc/nginx/ssl/server.crt
+COPY ./conf/server.key /etc/nginx/ssl/server.key
 
 RUN mkdir /var/log/nginx/dsa-mora 
 

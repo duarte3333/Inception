@@ -4,7 +4,7 @@ services:
     #image: mariadb:10.4 #the image is prep of the container but here i am create one
     build:
       context: . #the context is the path of the dockerfile 
-      dockerfile: ./mariadb/Dockerfile #my image file
+      dockerfile: ./requirements/mariadb/Dockerfile #my image file
     env_file: #injecting things to the env of the container by a file
       - .env      
     volumes: 
@@ -19,7 +19,7 @@ services:
     #image: wordpress:5.4.1 #the image is prep of the container but here i am create one
     build:
       context: . #the context is the path of the dockerfile 
-      dockerfile: ./wordpress/Dockerfile #my image file
+      dockerfile: ./requirements/wordpress/Dockerfile #my image file
     env_file: #injecting things to the env of the container by a file
       - .env
     volumes: #connection between host computer (VM) and container
@@ -36,9 +36,9 @@ services:
   nginx_tsl: #container name
     container_name: nginx
     build: #create image file
-      context: ./nginx #path of the dockerfile
+      context: ./requirements/nginx #path of the dockerfile
     volumes: #connection between host computer (VM) and container
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - wp_data:/var/www/html
     ports: #definition of ports to open
       - "443:443" #only if many containers are acessing to same door 
@@ -58,14 +58,14 @@ volumes:
       type: none
       o: bind
       #home/login/data
-      device: /home/vboxuser/data/wp_data 
+      device: /home/duarte33/data/wp_data 
   db_data:
     driver: local
     driver_opts: 
       type: none
       o: bind 
       #path where the database is stored on the host machine
-      device: /home/vboxuser/data/db_data 
+      device: /home/duarte33/data/db_data 
 
 
 
