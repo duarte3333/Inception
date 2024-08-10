@@ -14,12 +14,13 @@ COPY ./conf/server.crt /etc/nginx/ssl/server.crt
 COPY ./conf/server.key /etc/nginx/ssl/server.key
 
 RUN mkdir /var/log/nginx/dsa-mora 
-
 # Copy the configuration file and the HTML file
 #COPY ./nginx/html/index.html /usr/share/nginx/html/index.html
 
 # Expose the port
 EXPOSE 443
+
+RUN chown -R www-data:www-data /var/www/html
 #80 is web port and 443 internet port
 
 # Start the Nginx server
