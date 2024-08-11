@@ -61,14 +61,14 @@ volumes:
       type: none
       o: bind
       #home/login/data
-      device: /home/duarte33/data/wp_data 
+      device: /home/vboxuser/data/wp_data 
   db_data:
     driver: local
     driver_opts: 
       type: none #the none is to specify that the volume is not a volume of docker but a volume of the host machine
       o: bind #the bind is to specify that the volume is a bind between the host machine and the container
       #path where the database is stored on the host machine
-      device: /home/duarte33/data/db_data 
+      device: /home/vboxuser/data/db_data 
 
 
 
