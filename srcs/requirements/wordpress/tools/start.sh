@@ -53,8 +53,5 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     chown -R www-data:www-data /var/www/html/wp-content
 fi
 
-# Display the wp-config.php file
-cat /var/www/html/wp-config.php | grep "define( ')"
-
 # Start PHP-FPM in the foreground
 exec /usr/sbin/php-fpm7.4 -F

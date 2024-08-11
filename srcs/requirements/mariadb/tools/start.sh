@@ -1,9 +1,9 @@
 if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
     echo "Data directory already exists"
-fi
+else
 
-mysql_install_db
-service mariadb start
+    mysql_install_db
+    service mariadb start
 mysql_secure_installation << EOF
 
 n
@@ -16,13 +16,27 @@ y
 y
 EOF
 
-mysql -u $MYSQL_ROOT_USER -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
-mysql -u $MYSQL_ROOT_USER -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-mysql -u $MYSQL_ROOT_USER -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';"
-mysql -u $MYSQL_ROOT_USER -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
+    mysql -u $MYSQL_ROOT_USER -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
+    mysql -u $MYSQL_ROOT_USER -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
+    mysql -u $MYSQL_ROOT_USER -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';"
+    mysql -u $MYSQL_ROOT_USER -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 
-sleep 5
-service mariadb stop
+    sleep 5
+    service mariadb stop
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
 exec mysqld_safe --bind-address=0.0.0.0
 
 # if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]; #check if the directory exists
