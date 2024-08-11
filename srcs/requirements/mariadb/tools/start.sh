@@ -1,3 +1,4 @@
+#this is a script to start the mariadb service and create a database and a user
 if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
     echo "Data directory already exists"
 else
@@ -37,7 +38,7 @@ fi
 
 
 
-exec mysqld_safe --bind-address=0.0.0.0
+exec mysqld_safe --bind-address=0.0.0.0 #this command is to start the mariadb service and bind the address to 
 
 # if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]; #check if the directory exists
 # then

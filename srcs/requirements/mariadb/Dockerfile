@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y mariadb-server
 RUN mkdir -p /run/mysql 
 RUN chown -R mysql:mysql /run/mysql
 
+# Create the mysql directory and change the owner to the mysql user
 RUN mkdir -p /var/run/mysql 
 RUN chown -R mysql:mysql /var/run/mysql
 RUN chmod 777 /var/run/mysql
