@@ -41,8 +41,9 @@ Container tecnology!
 Docker is the most popular container tecnology that abstracts the complexities of **namespaces** and **Cgroups.**
 
 <div align=center>
-<img width="735" height="244" alt="Untitled (1)" src="https://github.com/user-attachments/assets/faa8b0c9-949f-4804-8629-b98e88eae48b" />
+<img width="735" height="244" alt="oioidocker" src="https://github.com/user-attachments/assets/e3324ccc-91ef-4076-8cce-7c256e02729e" />
 </div>
+
 
 ### Common Dockerfile Instructions
 - FROM – Specifies the base image to use.
